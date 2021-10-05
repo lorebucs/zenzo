@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Matrix differentiation | fastpages</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Matrix differentiation" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://lorebucs.github.io/zenzo/2021/10/04/Matrix-Differentiation.html" />
+<meta property="og:url" content="https://lorebucs.github.io/zenzo/2021/10/04/Matrix-Differentiation.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-10-04T00:00:00-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2021-10-04T00:00:00-05:00","url":"https://lorebucs.github.io/zenzo/2021/10/04/Matrix-Differentiation.html","@type":"BlogPosting","headline":"Matrix differentiation","dateModified":"2021-10-04T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://lorebucs.github.io/zenzo/2021/10/04/Matrix-Differentiation.html"},"description":"An easy to use blogging platform with support for Jupyter Notebooks.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/zenzo/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://lorebucs.github.io/zenzo/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/zenzo/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/zenzo/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/zenzo/about/">About Me</a><a class="page-link" href="/zenzo/search/">Search</a><a class="page-link" href="/zenzo/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Matrix differentiation</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-10-04T00:00:00-05:00" itemprop="datePublished">
+        Oct 4, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/lorebucs/zenzo/tree/master/_notebooks/2021-10-04-Matrix-Differentiation.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/zenzo/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/lorebucs/zenzo/master?filepath=_notebooks%2F2021-10-04-Matrix-Differentiation.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/zenzo/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/lorebucs/zenzo/blob/master/_notebooks/2021-10-04-Matrix-Differentiation.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/zenzo/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-10-04-Matrix-Differentiation.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Jacobian-matrix">The Jacobian matrix<a class="anchor-link" href="#The-Jacobian-matrix"> </a></h3><p>Let $\psi:\mathbb{R}^n \rightarrow \mathbb{R}^m$, or equivalently:</p>
+<p><br /></p>
+$$  
+\psi(\boldsymbol{x}) 
+=
+\begin{bmatrix}
+\psi_1(\boldsymbol{x}) \\
+\vdots \\
+\psi_m(\boldsymbol{x})
+\end{bmatrix}
+=
+\begin{bmatrix}
+\psi_1(x_1, \dots, x_n) \\
+\vdots \\
+\psi_m(x_1, \dots, x_n)
+\end{bmatrix}
+$$<p><br /></p>
+<p>The <em>Jacobian</em> of $\psi$ is defined as follows.</p>
+<p><br /></p>
+$$
+J_{\psi} = \frac{\partial \psi}{\partial \boldsymbol{x}} 
+=
+\begin{bmatrix}
+&amp;\frac{\partial \psi_1}{\partial x_1} &amp;\frac{\partial \psi_1}{\partial x_2} &amp;\dots &amp;\frac{\partial \psi_1}{\partial x_n} \\
+&amp;\frac{\partial \psi_2}{\partial x_1} &amp;\frac{\partial \psi_2}{\partial x_2} &amp;\dots &amp;\frac{\partial \psi_2}{\partial x_n} \\
+&amp;\vdots &amp;\vdots &amp;\ddots &amp;\vdots \\
+&amp;\frac{\partial \psi_m}{\partial x_1} &amp;\frac{\partial \psi_m}{\partial x_2} &amp;\dots &amp;\frac{\partial \psi_m}{\partial x_n}
+\end{bmatrix}
+$$<p><br /></p>
+<p>Notice that, if $\psi:\mathbb{R} \rightarrow \mathbb{R}^m$ (i.e., $n=1$), then the Jacobian is a $m \times 1$ matrix, e.g., a column vector.</p>
+<p><br /></p>
+$$
+J_{\psi} = \frac{\partial \psi}{\partial x} 
+=
+\begin{bmatrix}
+\frac{\partial \psi_1}{\partial x} \\
+\frac{\partial \psi_2}{\partial x} \\
+\vdots \\
+\frac{\partial \psi_m}{\partial x}
+\end{bmatrix}
+$$<p><br /></p>
+<p>On the other hand, if $\psi:\mathbb{R}^n \rightarrow \mathbb{R}$ (i.e., $m=1$), then the Jacobian is a $1 \times n$ matrix, e.g., a row vector.</p>
+<p><br /></p>
+$$
+J_{\psi} = \frac{\partial \psi}{\partial \boldsymbol{x}} 
+=
+\begin{bmatrix}
+\frac{\partial \psi}{\partial x_1} \frac{\partial \psi}{\partial x_2} \dots \frac{\partial \psi}{\partial x_n}
+\end{bmatrix}
+$$<p><br /></p>
+<p>When $\psi:\mathbb{R}^n \rightarrow \mathbb{R}$, the transpose of the row vector $J_{\psi}$ is called the <em>gradient</em> of $\psi$ and denoted by $\nabla \psi$.</p>
+<p><br /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Jacobian-of-the-dot-product">The Jacobian of the dot product<a class="anchor-link" href="#The-Jacobian-of-the-dot-product"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Jacobian-of-a-linear-form">The Jacobian of a linear form<a class="anchor-link" href="#The-Jacobian-of-a-linear-form"> </a></h3><p>Let $\boldsymbol{y} = A \boldsymbol{x}$ be a linear form with $\boldsymbol{y} \in \mathbb{R}^m$, $A \in \mathbb{R}^{m \times n}$ and $\boldsymbol{x} \in \mathbb{R}^n$, or equivalently:</p>
+<p><br /></p>
+$$  
+\boldsymbol{y}
+= 
+A\boldsymbol{x} 
+=
+\begin{bmatrix}
+a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n \\
+a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n \\
+\vdots \\
+a_{m1}x_1 + a_{m2}x_2 +\dots + a_{mn}x_n 
+\end{bmatrix}
+=
+\begin{bmatrix}
+y_1(x_1, \dots, x_n) \\
+\vdots \\
+y_m(x_1, \dots, x_n)
+\end{bmatrix}
+$$<p><br /></p>
+<p>From the definition of Jacobian it is immediate to notice that $J_{ij} = \frac{\partial y_i}{\partial x_j} $, and hence:</p>
+<p><br /></p>
+$$
+\begin{equation}
+\frac{\partial A\boldsymbol{x}}{\partial \boldsymbol{x}} =
+\begin{bmatrix}
+&amp;\frac{\partial y_1}{\partial x_1} &amp;\frac{\partial y_1}{\partial x_2} &amp;\dots &amp;\frac{\partial y_1}{\partial x_n} \\
+&amp;\frac{\partial y_2}{\partial x_1} &amp;\frac{\partial y_2}{\partial x_2} &amp;\dots &amp;\frac{\partial y_2}{\partial x_n} \\
+&amp;\vdots &amp;\vdots &amp;\ddots &amp;\vdots \\
+&amp;\frac{\partial y_m}{\partial x_1} &amp;\frac{\partial y_m}{\partial x_2} &amp;\dots &amp;\frac{\partial y_m}{\partial x_n}
+\end{bmatrix}
+= A
+\end{equation}
+$$<p><br /></p>
+<p><strong>Takeaway:</strong> $\frac{\partial }{\partial \boldsymbol{x}} A \boldsymbol{x} = A$.</p>
+<p><br /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Jacobian-of-Af(x)">The Jacobian of Af(<strong>x</strong>)<a class="anchor-link" href="#The-Jacobian-of-Af(x)"> </a></h3><p>Given $A f(\boldsymbol{x})$ with $A \in \mathbb{R}^{m \times n}$ and $f(\boldsymbol{x}):\mathbb{R}^l \rightarrow \mathbb{R}^n$, or equivalently:</p>
+<p><br /></p>
+$$  
+Af(\boldsymbol{x})
+=
+\begin{bmatrix}
+&amp;a_{11} &amp;a_{12} &amp; \dots  &amp; a_{1n} \\
+&amp;a_{21} &amp;a_{22} &amp; \dots  &amp; a_{2n} \\
+&amp;\vdots &amp;\vdots &amp;\ddots &amp; \vdots \\
+&amp;a_{m1} &amp;a_{m2} &amp; \dots  &amp; a_{mn} 
+\end{bmatrix}
+\begin{bmatrix}
+f_1(x_1, \dots, x_l) \\ 
+f_2(x_1, \dots, x_l) \\ 
+\vdots \\
+f_n(x_1, \dots, x_l)
+\end{bmatrix}
+=
+\begin{bmatrix}
+\sum_{i=1}^{n} a_{1i}f_i \\ 
+\sum_{i=1}^{n} a_{2i}f_i \\
+\vdots \\
+\sum_{i=1}^{n} a_{mi}f_i
+\end{bmatrix}
+=
+\begin{bmatrix}
+y_1(f(x_1), \dots, f(x_l)) \\
+\vdots \\
+y_m(f(x_1), \dots, f(x_l))
+\end{bmatrix}
+$$<p><br /></p>
+<p>From the definition of Jacobian matrix:</p>
+<p><br /></p>
+$$
+\begin{equation}
+J(\boldsymbol{y}(\boldsymbol{x}) ) = \frac{\partial \boldsymbol{y}(\boldsymbol{x}) }{\partial \boldsymbol{x}} =
+\begin{bmatrix}
+&amp;\frac{\partial y_1}{\partial x_1} &amp;\frac{\partial y_1}{\partial x_2} &amp;\dots &amp;\frac{\partial y_1}{\partial x_l} \\
+&amp;\frac{\partial y_2}{\partial x_1} &amp;\frac{\partial y_2}{\partial x_2} &amp;\dots &amp;\frac{\partial y_2}{\partial x_l} \\
+&amp;\vdots &amp;\vdots &amp;\ddots &amp;\vdots \\
+&amp;\frac{\partial y_m}{\partial x_1} &amp;\frac{\partial y_m}{\partial x_2} &amp;\dots &amp;\frac{\partial y_m}{\partial x_l}
+\end{bmatrix}
+\end{equation}
+=
+\begin{bmatrix}
+&amp;\sum_{i=1}^{n} a_{1i}\frac{\partial f_i}{\partial x_1} &amp;\sum_{i=1}^{n} a_{1i}\frac{\partial f_i}{\partial x_2} &amp;\dots &amp;\sum_{i=1}^{n} a_{1i}\frac{\partial f_i}{\partial x_l} \\
+&amp;\sum_{i=1}^{n} a_{2i}\frac{\partial f_i}{\partial x_1} &amp;\sum_{i=1}^{n} a_{2i}\frac{\partial f_i}{\partial x_2} &amp;\dots &amp;\sum_{i=1}^{n} a_{2i}\frac{\partial f_i}{\partial x_l} \\
+&amp;\vdots &amp;\vdots &amp;\ddots &amp;\vdots \\
+&amp;\sum_{i=1}^{n} a_{mi}\frac{\partial f_i}{\partial x_1} &amp;\sum_{i=1}^{n} a_{mi}\frac{\partial f_i}{\partial x_2} &amp;\dots &amp;\sum_{i=1}^{n} a_{mi}\frac{\partial f_i}{\partial x_l}
+\end{bmatrix}
+=
+\begin{bmatrix}
+&amp;a_{11} &amp;a_{12} &amp; \dots  &amp; a_{1n} \\
+&amp;a_{21} &amp;a_{22} &amp; \dots  &amp; a_{2n} \\
+&amp;\vdots &amp;\vdots &amp;\ddots &amp; \vdots \\
+&amp;a_{m1} &amp;a_{m2} &amp; \dots  &amp; a_{mn} 
+\end{bmatrix}
+\begin{bmatrix}
+&amp;\frac{\partial f_1}{\partial x_1} &amp;\frac{\partial f_1}{\partial x_2} &amp;\dots &amp;\frac{\partial f_1}{\partial x_l} \\
+&amp;\frac{\partial f_2}{\partial x_1} &amp;\frac{\partial f_2}{\partial x_2} &amp;\dots &amp;\frac{\partial f_2}{\partial x_l} \\
+&amp;\vdots &amp;\vdots &amp;\ddots &amp;\vdots \\
+&amp;\frac{\partial f_n}{\partial x_1} &amp;\frac{\partial f_n}{\partial x_2} &amp;\dots &amp;\frac{\partial f_n}{\partial x_l}
+\end{bmatrix}
+= A J(f(\boldsymbol{x})) = A \frac{\partial f(\boldsymbol{x})}{\partial \boldsymbol{x}} \in \mathbb{R}^{n \times l}
+$$<p><br /></p>
+<p><strong>Takeaway:</strong> $\frac{\partial }{\partial \boldsymbol{x}} A f(\boldsymbol{x}) = A \frac{\partial f(\boldsymbol{x})}{\partial \boldsymbol{x}}$.</p>
+<p><br /></p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/zenzo/2021/10/04/Matrix-Differentiation.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/zenzo/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/zenzo/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/zenzo/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/zenzo/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/zenzo/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
